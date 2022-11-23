@@ -19,12 +19,14 @@ function loading(show) {
 
 // Get quotes from API
 async function getQuotesFromAPI(limit) {
+  const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
   const apiUrl = `${ENV.API_URL}?category=${ENV.API_CATEGORY}&limit=${limit}`;
 
   loading(true);
 
   try {
-    const response = await fetch(apiUrl, {
+    // const response = await fetch(proxyUrl + apiUrl, {
+      const response = await fetch(apiUrl, {
       headers: { 'X-Api-Key': ENV.API_KEY },
       // contentType: 'application/json',
     });
@@ -42,7 +44,7 @@ async function getQuotesFromAPI(limit) {
     loading(false);
   }
   catch (err) {
-    console.log(err);
+    console.log('** Erro ao carregar as citações da API', err);
   }
 
   newQuote();
@@ -52,7 +54,9 @@ async function getQuotesFromAPI(limit) {
 function newQuote() {
   // Pick a random quote from api-ninja
   const quote = localQuotes[Math.floor(Math.random() * localQuotes.length)];
+
   authorText.textContent = quote.author || "Desconhecido";
+  quoteText.textContent = quote.text;
 
   // Check quote length to determine styling
   if (quote.text.length > 50) {
@@ -61,7 +65,6 @@ function newQuote() {
     quoteText.classList.remove('long-quote');
   }
 
-  quoteText.textContent = quote.text;
   viewedQuotes ++;
 
   // A cada 50 citações, carrega mais 50 da API
@@ -83,4 +86,4 @@ newQuoteBtn.addEventListener('click', newQuote);
 twitterBtn.addEventListener('click', tweetQuote);
 
 // On Load
-getQuotesFromAPI();
+getQuotesFromAPI(10);
