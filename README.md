@@ -5,8 +5,6 @@ Busca citações aleatórias de uma API ao clicar no botão Nova Citação. Alé
 
 Para rodar o programa, renomeie o arquivo _config.example.js_ para _config.js_ e informe a sua chave da API em API_URL. Caso não tenha essa chave, entre no site da [API-Ninjas](https://api.api-ninjas.com) e se cadastre, a fim de obter uma chave.<br/>
 
-Aplicação disponível [aqui](https://luiizsilverio.github.io/js-quote-generator/).
-
 
 ![](https://github.com/luiizsilverio/js-quote-generator/blob/master/screenshot.png)
 
