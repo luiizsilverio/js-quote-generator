@@ -1,5 +1,5 @@
-import { ENV } from "./config.js";
 import { localQuotes } from "./quotes.js";
+import { ENV } from "./config.js";
 
 const quoteContainer = document.getElementById('quote-container');
 const quoteText = document.getElementById('quote');
@@ -32,7 +32,6 @@ async function getQuotesFromAPI(limit) {
     });
 
     apiQuotes = await response.json();
-    console.log(`Carregou mais ${limit} citações da API`)
 
     apiQuotes.forEach(item => {
       localQuotes.push({
@@ -41,13 +40,16 @@ async function getQuotesFromAPI(limit) {
       });
     });
 
-    loading(false);
+    console.log(`Carregou mais ${limit} citações da API`)
   }
   catch (err) {
-    console.log('** Erro ao carregar as citações da API', err);
+    console.log('** Erro ao carregar as citações da API');
+    apiQuotes = [];
   }
-
-  newQuote();
+  finally {
+    loading(false);
+    newQuote();
+  }
 }
 
 // Show new quote
